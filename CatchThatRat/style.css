@@ -1,0 +1,22 @@
+body {
+    text-align: center;
+}
+.board {
+    /* considering each box is 150px + 1px of border */
+    width: 456px;
+    height: 456px;
+    display: flex;
+    /* need to wrap it so it will appear box instead of rectangle */
+    flex-wrap: wrap;
+    /* adding border outside to make it look thicker like the inside lines */
+    border: 1px solid black;
+    margin: auto;
+}
+.box {
+    width: 150px;
+    height: 150px;
+    border: 1px solid black;
+}
+.rat {
+    background-image: url("image/img.jpeg");
+}
