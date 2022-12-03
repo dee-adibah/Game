@@ -13,5 +13,5 @@ This is an inpiration from one of the arcade game called Whack-A-Mole.
 <h2>How To Play</h2>
 
 Simply press the start button and try to catch the rat appear by clicking on it.
-the game ends when the timer is up.
-Happy playing!
+<br>The game ends when the timer is up.
+<br>Happy playing!
