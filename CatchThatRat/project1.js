@@ -19,7 +19,7 @@ $(() => {
         let timer = 10;
         $('#timer').text(timer);
         let ratCaught = 0;
-
+        
         const ratMove = () => {
             //for loop to remove any rat in the box
             for (let i=0; i<=($('.box')).length; i++){
