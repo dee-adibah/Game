@@ -1,5 +1,15 @@
 body {
     text-align: center;
+    background-color: antiquewhite;
+}
+.btn {
+    width: 100px;
+    height: 30px;
+    background: pink;
+    font-size: large;
+}
+.btn:hover {
+    cursor: pointer;
 }
 .board {
     /* considering each box is 150px + 1px of border */
@@ -10,6 +20,7 @@ body {
     flex-wrap: wrap;
     /* adding border outside to make it look thicker like the inside lines */
     border: 1px solid black;
+    background-color: white;
     margin: auto;
 }
 .box {
@@ -19,4 +30,10 @@ body {
 }
 .rat {
     background-image: url("image/img.jpeg");
+}
+.cat {
+    background-image: url("image/cat.png");
+}
+.rat:hover, .cat:hover {
+    cursor: grab;
 }

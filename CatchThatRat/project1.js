@@ -7,38 +7,53 @@ $(() => {
     }
 
     //Declaring rat to the game
-    const rat = $('<div>').addClass('rat');
+    //const rat = $('<div>').addClass('rat');
+    //const cat = $('<div>').addClass('cat');
 
     //timer and score when initialise
     $('#timer').text(0);
-    $('#score').text(0);
+    let ratCaught = 0;
+    $('#score').text(ratCaught);
     
+    //Game start
     const btn = $('.btn').on('click', () => {
 
         //initial timer after start button is pressed
         let timer = 10;
         $('#timer').text(timer);
-        let ratCaught = 0;
+        // let ratCaught = 0; //declaring here cause the 3rd tries not working
+        // $('#score').text(ratCaught);
         
-        const ratMove = () => {
+        const ratCatMove = () => {
             //for loop to remove any rat in the box
             for (let i=0; i<=($('.box')).length; i++){
                 $('.box').removeClass('rat');
+                $('.box').removeClass('cat');
             }
             let randomBox = $('.box')[Math.floor(Math.random()*9)];
             //console.log(randomBox) //showing random id
-            $(randomBox).addClass('rat'); //everytime refresh rat will be at random box
+            let ratOrCat = Math.floor(Math.random()*3);
+            //console.log(ratOrCat)
+            if (ratOrCat === 1) {
+                $(randomBox).addClass('cat');
+            } else {
+                $(randomBox).addClass('rat');
+            }
         }
-        //setInterval(ratMove, 1000) //automatically moving the rat
+        //setInterval(ratCatMove, 1000) //automatically moving the rat
         //need to set as variable so can stop it when game ends
-        let movingRat = setInterval(ratMove, 1000);
-        
+        let movingRatCat = setInterval(ratCatMove, 1000);
+
         const score = $('.box').on('click', (event) => {
             //console.log(event)
             if (($('.rat').attr('id')) === ($(event.currentTarget).attr('id'))) {
                 ratCaught++;
                 $('#score').text(ratCaught);
                 $('.box').removeClass('rat');
+            } else if (($('.cat').attr('id')) === ($(event.currentTarget).attr('id'))) {
+                ratCaught--;
+                $('#score').text(ratCaught);
+                $('.box').removeClass('cat');
             }
         })
         
@@ -46,20 +61,23 @@ $(() => {
             timer--;
             $('#timer').text(timer);
             if (timer === 0) {
-                if (ratCaught === 0) {
+                if (ratCaught <= 0) {
                     alert("Time's Up! you didn't manage to catch any rats. It's ok try again")
                 } else {
                     alert("Time's Up! Congratulations!! You caught "+ ratCaught+ " rats!");
                 }
                 clearInterval(movingTime); //timer stay at 0 
-                clearInterval(movingRat); //rat stop moving
+                clearInterval(movingRatCat); //rat or cat stop moving
                 $('.box').removeClass('rat'); 
-                $('#score').text(0); 
+                $('.box').removeClass('cat');
+                ratCaught = 0;
+                $('#score').text(ratCaught); 
+                //console.log(ratCaught)
             }
         }
         //setInterval(countDown, 1000)
         //need to set as variable so timer stay at 0 when game ends
         let movingTime = setInterval(countDown, 1000);
-
+        
     })
 })
