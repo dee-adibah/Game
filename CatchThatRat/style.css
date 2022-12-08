@@ -1,12 +1,20 @@
 body {
     text-align: center;
     background-color: antiquewhite;
+    font-family: monospace;
+}
+h1 {
+    font-size: 400%;
+}
+h2 {
+    font-size: 200%;
 }
 .btn {
     width: 100px;
-    height: 30px;
+    height: 50px;
     background: pink;
-    font-size: large;
+    font-size: 200%;
+    font-family: serif;
 }
 .btn:hover {
     cursor: pointer;
@@ -20,7 +28,7 @@ body {
     flex-wrap: wrap;
     /* adding border outside to make it look thicker like the inside lines */
     border: 1px solid black;
-    background-color: white;
+    /* background-color: white; */
     margin: auto;
 }
 .box {
@@ -29,11 +37,24 @@ body {
     border: 1px solid black;
 }
 .rat {
-    background-image: url("image/img.jpeg");
+    background-image: url("image/rat.png");
 }
 .cat {
     background-image: url("image/cat.png");
 }
 .rat:hover, .cat:hover {
     cursor: grab;
+}
+table, th, td {
+    border: gray 1px solid;
+    font-size: x-large;
+    font-weight: bold;
+    margin: auto;
+}
+th {
+    background-color: lavenderblush;
+}
+th, td {
+    text-align: center;
+    padding: 5px;
 }
