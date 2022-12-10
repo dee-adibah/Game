@@ -26,10 +26,8 @@ $(() => {
     const btn = $('.btn').on('click', () => {
 
         //initial timer after start button is pressed
-        let timer = 10;
+        let timer = 30;
         $('#timer').text(timer + ' secs');
-        // let ratCaught = 0; //declaring here cause the 3rd tries not working
-        // $('#score').text(ratCaught);
         
         const ratCatMove = () => {
             //for loop to remove any rat in the box
@@ -39,13 +37,19 @@ $(() => {
             }
             let randomBox = $('.box')[Math.floor(Math.random()*9)];
             //console.log(randomBox) //showing random id
-            let ratOrCat = Math.floor(Math.random()*3);
-            //console.log(ratOrCat)
-            if (ratOrCat === 1) {
-                $(randomBox).addClass('cat');
-            } else {
+            if (timer > 20) {
                 $(randomBox).addClass('rat');
             }
+            else if (timer <=20 ) {
+                let ratOrCat = Math.floor(Math.random()*3);
+                //console.log(ratOrCat)
+                if (ratOrCat === 1) {
+                    $(randomBox).addClass('cat');
+                } else {
+                    $(randomBox).addClass('rat');
+                }
+            }
+            
         }
         //setInterval(ratCatMove, 1000) //automatically moving the rat
         //need to set as variable so can stop it when game ends
@@ -71,12 +75,11 @@ $(() => {
                 if (ratCaught <= 0) {
                     alert("Time's Up! you didn't manage to catch any rats. It's ok try again")
                 } else {
-                    let person = prompt("Time's Up! Congratulations!! You caught "+ ratCaught+ " rats!\nPlease enter your name", "your name");
-                    //alert("Time's Up! Congratulations!! You caught "+ ratCaught+ " rats!");
-                    let scoreBoard = [];
-                    if (ratCaught < 0) {
-                        ratCaught = 0;
+                    let person = prompt("Time's Up! Congratulations!! You caught "+ ratCaught+ " rats!\nYou got a spot in the score history", "your name");
+                    if (person===null || person === '') {
+                        person = "Anonymous"
                     }
+                    let scoreBoard = [];
                     scoreBoard.push(ratCaught);
 
                     //Getting to show date and time in proper format
