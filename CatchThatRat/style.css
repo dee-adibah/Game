@@ -42,9 +42,6 @@ h2 {
 .cat {
     background-image: url("image/cat.png");
 }
-.gate {
-    background-image: url("image/gate.png");
-}
 .rat:hover, .cat:hover {
     cursor: grab;
 }
