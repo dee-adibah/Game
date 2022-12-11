@@ -17,6 +17,8 @@ $(() => {
     scoreTable.append(thead);
     thead.append(tableName, tableDate, tableTime, tableResult);
 
+    let scoreBoard = [];
+
     //timer and score when initialise
     $('#timer').text(0 + ' secs');
     let ratCaught = 0;
@@ -36,13 +38,11 @@ $(() => {
                 $('.box').removeClass('cat');
             }
             let randomBox = $('.box')[Math.floor(Math.random()*9)];
-            //console.log(randomBox) //showing random id
             if (timer > 20) {
                 $(randomBox).addClass('rat');
             }
             else if (timer <=20 ) {
                 let ratOrCat = Math.floor(Math.random()*3);
-                //console.log(ratOrCat)
                 if (ratOrCat === 1) {
                     $(randomBox).addClass('cat');
                 } else {
@@ -55,8 +55,8 @@ $(() => {
         //need to set as variable so can stop it when game ends
         let movingRatCat = setInterval(ratCatMove, 1000);
 
+        //Scoring system
         const score = $('.box').on('click', (event) => {
-            //console.log(event)
             if (($('.rat').attr('id')) === ($(event.currentTarget).attr('id'))) {
                 ratCaught++;
                 $('#score').text(ratCaught);
@@ -71,6 +71,11 @@ $(() => {
         const countDown = () => {
             timer--;
             $('#timer').text(timer + ' secs');
+            gameEnd();
+        }
+        let movingTime = setInterval(countDown, 1000);
+
+        const gameEnd = () => {
             if (timer === 0) {
                 if (ratCaught <= 0) {
                     alert("Time's Up! you didn't manage to catch any rats. It's ok try again")
@@ -79,16 +84,25 @@ $(() => {
                     if (person===null || person === '') {
                         person = "Anonymous"
                     }
-                    let scoreBoard = [];
-                    scoreBoard.push(ratCaught);
-
+                    
                     //Getting to show date and time in proper format
                     let today = new Date();
                     let date = today.getDate() + '/' + (today.getMonth()+1) + '/' + today.getFullYear()
                     let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
                     
-                    //Displaying name, date, time & result
-                    scoreTable.append('<tr>'+ '<td>' + person + '<td>' + date + '<td>' + time + '<td>' + scoreBoard + '</td></tr>');
+                    //Sorting out score history to be highscore at the top
+                    scoreBoard.push({person,date,time,ratCaught});
+                    scoreBoard.sort(function(a, b){return b.ratCaught-a.ratCaught});
+                    $('#scoreboard').append(scoreBoard)
+
+                    //updating the new scoretable after sorting out
+                    scoreTable.empty()
+                    scoreTable.append(thead);
+                    thead.append(tableName, tableDate, tableTime, tableResult);
+                    scoreBoard.forEach(score => {
+                        const {person, date, time, ratCaught} = score; //object destructuring
+                        scoreTable.append('<tr>'+ '<td>' + person + '<td>' + date + '<td>' + time + '<td>' + ratCaught + '</td></tr>');
+                    })
                 }
                 
                 clearInterval(movingTime); //timer stay at 0 
@@ -98,11 +112,7 @@ $(() => {
                 
                 ratCaught = 0;
                 $('#score').text(ratCaught); 
-                //console.log(ratCaught)
             }
         }
-        //setInterval(countDown, 1000)
-        //need to set as variable so timer stay at 0 when game ends
-        let movingTime = setInterval(countDown, 1000);
     })
 })
